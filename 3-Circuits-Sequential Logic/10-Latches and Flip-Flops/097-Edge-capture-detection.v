@@ -16,7 +16,7 @@ module top_module (
 endmodule
 
 // Solution based on below truth table I built
-/*
+    /*
     | nedge | reset | Qn | Qn+1 |
     |-------|-------|----|------|
     |   0   |   0   |  0 |   0  |
@@ -27,11 +27,11 @@ endmodule
     |   1   |   0   |  1 |   1  |
     |   1   |   1   |  0 |   0  |
     |   1   |   1   |  1 |   0  |
-*/
+    */
 
 
 //Below is Non-working solution Debug done during solving
-/*
+    /*
 
     module top_module (
         input clk,
@@ -52,4 +52,4 @@ endmodule
         end
     endmodule
 
-*/
+    */
