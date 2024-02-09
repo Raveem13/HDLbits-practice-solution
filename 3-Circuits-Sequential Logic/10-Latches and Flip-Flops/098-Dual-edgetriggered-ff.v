@@ -30,7 +30,7 @@ module pedff (
         out <= din; 
 endmodule
 
-//2to1 Mux with clock as sector
+//2to1 Mux with clock as selector
 module mux2t1 (
     input a,
     input b,
