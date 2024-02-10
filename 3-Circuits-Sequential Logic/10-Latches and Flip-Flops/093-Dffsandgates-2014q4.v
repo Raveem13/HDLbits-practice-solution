@@ -32,6 +32,8 @@ module df (
     end
 endmodule
 
+//Use built-in n-input gates instead of userdefined gates
+
 module andg (
     input a, b,
     output out
