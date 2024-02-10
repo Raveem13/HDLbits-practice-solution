@@ -66,7 +66,7 @@ module top_module(
                         lni = (j-1);
                         rni = (j+1);
                     end
-                    //			bottom  ,	top		,		left	,	right		,		l-t		, 	l-b		  ,		r-b		 ,		r-t	
+                    //		bottom   ,	    top		, 	  left	  ,	   right	   ,    l-t	     ,     l-b   ,  	r-b		 ,		r-t	
                     count = q[bni*16+j] + q[tni*16+j] + q[lni+i*16] + q[rni+i*16] + q[lni+tni*16] + q[lni+bni*16] + q[rni+bni*16] + q[rni+tni*16];
                     if(count < 2 || count >= 4)
                         q[i*16+j] <= 0;
