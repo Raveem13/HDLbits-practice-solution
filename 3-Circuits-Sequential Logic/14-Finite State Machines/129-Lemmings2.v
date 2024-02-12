@@ -9,7 +9,7 @@ module top_module(
     output aaah ); 
     
     //-------------Internal Constants-----------------
-	parameter FL=1, FR=2 , WL=4, WR=8;  // States : FallLeft, FallRight, WalkLeft, WalkRight
+    parameter FL=1, FR=2 , WL=4, WR=8;  // States : FallLeft, FallRight, WalkLeft, WalkRight
     //-------------Internal Variables-----------------
     reg [3:0] state, next_state; //Used one hot encoding, 4 state bits required for 4 states.
 
