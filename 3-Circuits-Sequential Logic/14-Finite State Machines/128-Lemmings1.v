@@ -6,7 +6,7 @@ module top_module(
     output walk_left,
     output walk_right); //  
 
-    // parameter LEFT=0, RIGHT=1, ...
+    // parameter LEFT=0, RIGHT=1,...
     parameter LEFT=0, RIGHT=1;
     reg state, next_state;
     
