@@ -12,7 +12,7 @@ module top_module(
     parameter START=0, B1=1, B2=2, B3=3, B4=4, B5=5, B6=6, B7=7, B8=8, IDLE=9, WAIT=10, DONE=11;  // States 
     //-------------Internal Variables-----------------
     reg [3:0] state, next_state; //Used binary encoding, 4 state bits required for 12 states.
-	reg [7:0] out_reg;
+    reg [7:0] out_reg;
     
     // State transition logic - Combinational Logic
     always @(*) begin
