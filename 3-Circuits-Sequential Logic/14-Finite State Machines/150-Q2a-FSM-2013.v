@@ -23,7 +23,7 @@ module top_module (
 
     // Current state logic - Sequential Logic
     always @(posedge clk) begin
-    // State flip-flops with asynchronous / synchronous reset
+    // active-low synchronous reset
         if(!resetn)
             state <= A;
         else
