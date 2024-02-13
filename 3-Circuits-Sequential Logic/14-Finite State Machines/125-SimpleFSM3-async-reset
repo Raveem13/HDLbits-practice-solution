@@ -26,5 +26,3 @@ module top_module(
 
     // Output logic
     assign out = (state == D); 
-
-endmodule
