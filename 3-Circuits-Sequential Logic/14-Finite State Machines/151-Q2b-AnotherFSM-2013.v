@@ -8,18 +8,25 @@ module top_module (
 ); 
 
     //-------------Internal Constants-----------------
-    parameter A=0, S0=1, S1=2, S2=4, S3=8, ......;  // States 
+    parameter A=0, B=1, C=2, D=3, E=4, F=5, G=6, H=7, I=8, J=9;  // States 
 
     //-------------Internal Variables-----------------
-    reg [3:0] state, next_state;    //Used one hot encoding, 4 state bits required for 4 states.
-    reg [N:0] temp;                //Any temp register.
+    reg [3:0] state, next_state;    // 10 states.
 
     // State transition logic - Combinational Logic
     always @(*) begin
         case(state)
-            curr_state : next_state = input ? next_state_true : next_state_false ;
-            
-            default : next_state = 4'bxxx;
+            A : next_state = B;
+            B : next_state = C;
+            C : next_state = x ? D : C;
+            D : next_state = x ? D : E;
+            E : next_state = x ? F : C;
+            F : next_state = y ? G : I;
+            G : next_state = H;
+            I : next_state = y ? H : J;
+            J : next_state = J;
+            H : next_state = H;
+            //default : next_state = 4'bxxxx;
         endcase
     end
 
@@ -33,7 +40,7 @@ module top_module (
     end
 
     // Output logic - Combinational output logic
-    assign f = (state == ...);
-    assign g = (state == ...);
+    assign f = (state == B);
+    assign g = (state == F) || (state == G) || (state == H) || (state == I);
     
 endmodule
