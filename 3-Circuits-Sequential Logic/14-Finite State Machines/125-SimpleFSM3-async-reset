@@ -5,9 +5,9 @@ module top_module(
     output out); //
 
     // State transition logic
-    reg [1:0] state;
-    reg [1:0] next_state;
     parameter A=0, B=1, C=2, D=3;
+    reg [1:0] state;
+    reg [1:0] next_state; 
     
     always @(*) begin
         case(state)
