@@ -1,0 +1,37 @@
+module top_module (
+    input clk,
+    input reset,      // Synchronous reset
+    input data,
+    output start_shifting);
+    
+    //-------------Internal Constants-----------------
+    parameter W0=0, W1=1, W2=2, W3=3, W4=4;  // States 
+
+    //-------------Internal Variables-----------------
+    reg [2:0] state, next_state;    
+
+    // State transition logic - Combinational Logic
+    always @(*) begin
+        case(state)
+            W0 : next_state = data ? W1 : W0 ;
+            W1 : next_state = data ? W2 : W0 ;
+            W2 : next_state = data ? W2 : W3 ;
+            W3 : next_state = data ? W4 : W0 ;
+            W4 : next_state = W4 ;
+            //default : next_state = 2'bxx;
+        endcase
+    end
+
+    // Current state logic - Sequential Logic
+    always @(posedge clk) begin
+    // synchronous reset
+        if(reset)
+            state <= W0;
+        else
+            state <= next_state;
+    end
+
+    // Output logic - Combinational output logic
+    assign start_shifting = (state == W4);
+
+endmodule
