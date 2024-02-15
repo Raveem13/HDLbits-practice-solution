@@ -17,3 +17,15 @@ module top_module (
     assign OneHertz = qout2[3] & qout2[0] & c_enable[2];
 
 endmodule
+
+
+    /*
+    BCD counter is provided for you. Enable must be high for the counter to run. Reset is synchronous and set high to force the counter to zero. All counters in your circuit must directly use the same 1000 Hz signal.
+
+    module bcdcount (
+        input clk,
+        input reset,
+        input enable,
+        output reg [3:0] Q
+    );
+    */
