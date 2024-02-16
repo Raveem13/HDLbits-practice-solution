@@ -11,56 +11,70 @@ module top_module(
     output digging ); 
 
     //-------------Internal Constants-----------------
-    // F > D > W Switch, States : FallLeft, FallRight, DigLeft, DigRight, WalkLeft, WalkRight
-    parameter SPLAT=0, FL=1, FR=2, DL=3, DR=4, WL=5, WR=6; 
-    integer count = 0;
+    // F > D > W Switch 
+    parameter SPLAT0=0, SPLAT1=1, FL=2, FR=3, DL=4, DR=5, WL=6, WR=7;	// States 
+    
     //-------------Internal Variables-----------------
-    reg [2:0] state, next_state; //used Binary encoding, 3 state bits required for 7 states.
-
+    reg [3:0] state, next_state; //used Binary encoding, 4 state bits required.
+	// Counter for tracking the number of clock cycles in FL state
+    reg [4:0] flr_counter;   // For max 21 cycles
+    
+    
     // State transition logic - Combinational Logic
     always @(*) begin
         case(state)
-            WL : next_state = ground ? (dig ? DL : (bump_left ? WR : WL)) : FL ;
-            //FL : next_state = ground ? WL : FL;
-            FL : begin 
-                if(count > 22)
-                    next_state = SPLAT;
-                else if(ground || ~(state == SPLAT) )begin
-                    //count = 0;
-                    next_state = WL;
-                end
-                else begin
+            WL : begin 
+                if (ground)
+                    next_state = (dig ? DL : (bump_left ? WR : WL)) ;
+                else
                     next_state = FL;
-                end
+            end
+            FL : begin 
+                if (flr_counter >= 20 )
+                    next_state = ground ? SPLAT0 : SPLAT1 ;
+                else
+                	next_state = ground ? WL : FL;
             end
             DL : next_state = ground ? DL : FL;
-            WR : next_state = ground ? (dig ? DR : (bump_right ? WL : WR)) : FR;
-            FR : next_state = ground ? WR : FR;
+            WR : begin 
+                if (ground)
+                    next_state = dig ? DR : (bump_right ? WL : WR) ;
+                else
+                    next_state = FR;
+            end
+            FR :begin 
+                if (flr_counter >= 20 )
+                    next_state = ground ? SPLAT0 : SPLAT1 ;
+                else
+                	next_state = ground ? WR : FR;
+            end
             DR : next_state = ground ? DR : FR;
-            SPLAT : next_state = SPLAT;
-            default : next_state = 3'bxxx;
+            SPLAT0: next_state = SPLAT0 ;
+            SPLAT1: next_state = ground ? SPLAT0 : SPLAT1 ;
+            // default : next_state = SPLAT;
         endcase
     end
 
     // Current state logic - Sequential Logic
     always @(posedge clk, posedge areset) begin
         // asynchronous reset
-        if(areset)
+        if(areset) begin
             state <= WL;
-        else if (state == FL ) begin
-        	count <= count + 1;
-        	state <= next_state;
+        	flr_counter <= 0;
         end
         else begin
-            count = 0;
             state <= next_state;
+            if (state == FL || state == FR) 
+                flr_counter <= flr_counter + 1;
+            else 
+                flr_counter <= 0;
         end
     end
-
+    
     // Output logic - Combinational output logic
-    assign aaah = (state == FL || state == FR); // Go aaah when Fall left or Fall right  
+    assign aaah = (state == FL || state == FR || state == SPLAT1) ; 
     assign digging = (state == DL || state == DR);
     assign walk_left = (state == WL ); 
-    assign walk_right = (state == WR );     
+    assign walk_right = (state == WR );       
     
 endmodule
