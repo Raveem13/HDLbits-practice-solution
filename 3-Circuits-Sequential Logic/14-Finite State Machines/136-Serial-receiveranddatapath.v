@@ -62,6 +62,4 @@ module top_module(
     // Output logic - Combinational output logic
     assign done = (state == DONE);    
     
-    //assign out_byte = out_reg;
-
 endmodule
