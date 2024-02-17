@@ -29,7 +29,7 @@ module top_module(
     // State transition logic - Combinational Logic
     always @(*) begin
         done = 0;  // forcing done flag = 0, after DONE state.
-        pm_rst = (state == IDLE || state == DONE); //parity module reset on before going START state.
+        pm_rst = (state == IDLE || state == DONE); //parity module reset before going START state.
         out_byte = pm_rst;
         case(state)
             IDLE : next_state = in ? IDLE : START;
