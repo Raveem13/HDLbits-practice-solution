@@ -9,7 +9,7 @@ module top_module (
         if(shift_ena)
             q <= ( q<<1 ) | data;
         if (count_ena)	
-            q <= q - 1;
+            q <= q - 1;     // It should go to F after 0, to match test cases.
     end
 
 endmodule
