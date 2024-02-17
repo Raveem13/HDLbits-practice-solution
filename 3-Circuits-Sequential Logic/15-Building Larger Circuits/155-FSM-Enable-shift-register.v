@@ -39,7 +39,6 @@ module top_module (
     end
 
     // Output logic - Combinational output logic
-    // or 
-    // assign shift_ena = (state == C0) || (state == C1) || (state == C2) || (state == C3) ;
+    // assign shift_ena = (state == C0) || (state == C1) || (state == C2) || (state == C3) ; // or instead of case statements for state output 
     
 endmodule
