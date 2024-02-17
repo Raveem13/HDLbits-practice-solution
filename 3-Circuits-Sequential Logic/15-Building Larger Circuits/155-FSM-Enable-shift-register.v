@@ -19,7 +19,7 @@ module top_module (
             C4 : next_state = C4;
             default : next_state = 3'bxxx;
         endcase
-        
+      
         case(state)
             C0 : shift_ena = 1;
             C1 : shift_ena = 1;
@@ -27,7 +27,7 @@ module top_module (
             C3 : shift_ena = 1;
             C4 : shift_ena = 0;
             default : shift_ena = 0;
-        endcase
+        endcase 
     end
 
     // Current state logic - Sequential Logic
@@ -39,5 +39,7 @@ module top_module (
     end
 
     // Output logic - Combinational output logic
+    // or 
+    // assign shift_ena = (state == C0) || (state == C1) || (state == C2) || (state == C3) ;
     
 endmodule
