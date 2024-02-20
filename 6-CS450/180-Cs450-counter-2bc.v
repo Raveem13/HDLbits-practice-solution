@@ -15,10 +15,10 @@ module top_module(
     // State transition logic - Combinational Logic
     always @(*) begin
         case(state)
-            SNT : next_state = train_valid ? ( train_taken ? WNT : SNT ) : SNT ;
-            WNT : next_state = train_valid ? ( train_taken ? WT : SNT ) : WNT ;
-            WT : next_state = train_valid ? ( train_taken ? ST : WNT ) : WT ;
-            ST : next_state = train_valid ? ( train_taken ? ST : WT ) : ST ;
+            SNT : next_state = train_taken ? WNT : SNT ;
+            WNT : next_state = train_taken ? WT : SNT ;
+            WT : next_state = train_taken ? ST : WNT ;
+            ST : next_state = train_taken ? ST : WT ;
         endcase
     end
 
@@ -26,7 +26,7 @@ module top_module(
     // State flip-flops with asynchronous reset
         if(areset)
             state <= WNT ;
-        else 
+        else if (train_valid)
             state <= next_state;
     end
 
