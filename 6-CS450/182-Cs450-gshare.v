@@ -14,13 +14,16 @@ module top_module(
     input [6:0] train_pc
 );
 
+    //-------------Internal Constants-----------------
     parameter PHT_SIZE = 128;
 
+    //-------------Internal Variables-----------------
     reg [1:0] pht[PHT_SIZE-1:0];
     reg [6:0] ghr;
     reg [6:0] hashed_index_p;
     reg [6:0] hashed_index_t;
 
+    // Combinational Logic
     always @(*) begin
         begin
             hashed_index_p = predict_pc ^ predict_history;
@@ -28,6 +31,7 @@ module top_module(
         end
     end
 
+    // Sequential Logic
     always @(posedge clk, posedge areset) begin
         if (areset) begin
             predict_history <= 0;
